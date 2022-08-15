@@ -31,18 +31,9 @@
           placeholder="Filter By First Name"
         />
       </div>
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Avatar</th>
-              <th>Email</th>
-              <th role="button" onclick="sortByFirstName()">Firstname</th>
-              <th role="button" onclick="sortByLastName()">LastName</th>
-            </tr>
-          </thead>
-          <tbody id="dynamicTableData"></tbody>
-        </table>
+      <div class="row">
+       <div id="dynamicTableData"></div>
+        </div>
       </div>
     </div>
   </body>
@@ -82,6 +73,7 @@
   // var mockData = { "page": 2, "per_page": 6, "total": 12, "total_pages": 2, "data": [{ "id": 7, "email": "michael.lawson@reqres.in", "first_name": "Michael", "last_name": "Lawson", "avatar": "https://reqres.in/img/faces/7-image.jpg" }, { "id": 8, "email": "lindsay.ferguson@reqres.in", "first_name": "Lindsay", "last_name": "Ferguson", "avatar": "https://reqres.in/img/faces/8-image.jpg" }, { "id": 9, "email": "tobias.funke@reqres.in", "first_name": "Tobias", "last_name": "Funke", "avatar": "https://reqres.in/img/faces/9-image.jpg" }, { "id": 10, "email": "byron.fields@reqres.in", "first_name": "Byron", "last_name": "Fields", "avatar": "https://reqres.in/img/faces/10-image.jpg" }, { "id": 11, "email": "george.edwards@reqres.in", "first_name": "George", "last_name": "Edwards", "avatar": "https://reqres.in/img/faces/11-image.jpg" }, { "id": 12, "email": "rachel.howell@reqres.in", "first_name": "Rachel", "last_name": "Howell", "avatar": "https://reqres.in/img/faces/12-image.jpg" }], "support": { "url": "https://reqres.in/#support-heading", "text": "To keep ReqRes free, contributions towards server costs are appreciated!" } }
 </script>
 <script>
+  let toast = new bootstrap.Toast(document.getElementById('liveToast'));
   var userData;
 
   var url = 'https://reqres.in/api/users?page=1';
@@ -135,7 +127,7 @@
     }
   }
   function sendHTTPReqForUser() {
-    debugger
+    debugger;
     getvalfromsession();
     var xhttp = new XMLHttpRequest();
     xhttp.open(method, url, true);
@@ -155,6 +147,7 @@
   }
 
   function fetchDataForTable(data) {
+    debugger;
     console.log(data);
 
     // data = mockData;
@@ -164,56 +157,31 @@
     userData = data && data.data ? data.data : [];
 
     for (let row of userData) {
-      str += `<tr class="align-middle">\
-            
-            <td><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle"></td>
-            <td>${row.email}</td>
-            <td>${row.first_name}</td>
-            <td>${row.last_name}</td>            
-            </tr>`;
+	  str += `<div class="col-sm-3 col-md-3 col-lg-3 col-lx-3">
+          <div class="card">
+            <div class="card-header">George Bluth</div>
+            <div class="card-body">
+              <div class="row">
+                <div>
+                  <label>Email:${row.email}</label>
+                </div>
+                <div>
+                  <label>Firstname:${row.first_name}</label>
+                </div>
+                <div>
+                  <label>LastName:${row.last_name}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
     }
 
     document.querySelector('#dynamicTableData').innerHTML = '';
 
     document.querySelector('#dynamicTableData').innerHTML = str;
   }
-
-  function sortByFirstName() {
-    let str = '';
-    userData
-      .sort((a, b) => a.first_name.localeCompare(b.first_name))
-      .forEach((row, index, arr) => {
-        str += `<tr>\
-            
-            <td><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle"></td>
-            <td>${row.email}</td>
-            <td>${row.first_name}</td>
-            <td>${row.last_name}</td>            
-            </tr>`;
-        document.querySelector('#dynamicTableData').innerHTML = '';
-
-        document.querySelector('#dynamicTableData').innerHTML = str;
-      });
-  }
-  function sortByLastName() {
-    let str = '';
-    userData
-      .sort((a, b) => a.last_name.localeCompare(b.last_name))
-      .forEach((row, index, arr) => {
-        str += `<tr>\
-            
-            <td><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle"></td>
-            <td>${row.email}</td>
-            <td>${row.first_name}</td>
-            <td>${row.last_name}</td>            
-            </tr>`;
-        document.querySelector('#dynamicTableData').innerHTML = '';
-
-        document.querySelector('#dynamicTableData').innerHTML = str;
-      });
-  }
-
-  function clearTokenAfterAWhile() {
+ function clearTokenAfterAWhile() {
     setTimeout(() => {
       localStorage.removeItem('my-app-token');
       window.location;
