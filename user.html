@@ -23,6 +23,7 @@
     <div class="container">
       <h1>User Page</h1>
       <div class="mb-3">
+      <div class="row">
         <label class="form-label"></label>
         <input
           type="search"
@@ -30,8 +31,14 @@
           oninput="filterData(event)"
           placeholder="Filter By First Name"
         />
+     </div>
+     <div style="
+    padding: 10px;
+"></div>
+      <button type="button" class="btn btn-outline-primary btnwd" onclick="sortByFirstName()">Sort By First Name</button>
+      <button type="button" class="btn btn-outline-primary btnwd"onclick="sortByLastName()">Sort By Last Name</button>
       </div>
-      <div class="row" id="dynamicTableData">
+      <div class="row" id="dynamicData">
         </div>
       </div>
     </div>
@@ -108,9 +115,9 @@
     if (dataUsedForFiltering.length === 0) {
       str +=
         '<div colspan="4" class="text-center">No User Data to Show </div>';
-      document.querySelector('#dynamicTableData').innerHTML = '';
+      document.querySelector('#dynamicData').innerHTML = '';
 
-      document.querySelector('#dynamicTableData').innerHTML = str;
+      document.querySelector('#dynamicData').innerHTML = str;
     } else {
       dataUsedForFiltering.forEach((row, index, arr) => {
         Count++
@@ -158,9 +165,9 @@
           </div>
         </div>`;
     }
-        document.querySelector('#dynamicTableData').innerHTML = '';
+        document.querySelector('#dynamicData').innerHTML = '';
 
-        document.querySelector('#dynamicTableData').innerHTML = str;
+        document.querySelector('#dynamicData').innerHTML = str;
       });
     }
   }
@@ -243,9 +250,9 @@
     }
     }
 
-    document.querySelector('#dynamicTableData').innerHTML = '';
+    document.querySelector('#dynamicData').innerHTML = '';
 
-    document.querySelector('#dynamicTableData').innerHTML = str;
+    document.querySelector('#dynamicData').innerHTML = str;
   }
  function clearTokenAfterAWhile() {
     setTimeout(() => {
@@ -259,5 +266,117 @@
     document.querySelector('#showMessage').innerText = '';
     document.querySelector('#showMessage').innerText = messsage;
     toast.show();
+  }
+  function sortByFirstName() {
+    let str = '';
+    let Count=0;
+    userData
+      .sort((a, b) => a.first_name.localeCompare(b.first_name))
+      .forEach((row, index, arr) => {
+        Count++
+    if(Count % 4==0)
+    {
+ str += `<div class="col-sm-3 col-md-3 col-lg-3 col-lx-3">
+          <div class="card">
+            <div class="card-header"><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle">${row.first_name} ${row.last_name}</div>
+            <div class="card-body">
+              <div class="row">
+                <div>
+                  <label>Email:${row.email}</label>
+                </div>
+                <div>
+                  <label>Firstname:${row.first_name}</label>
+                </div>
+                <div>
+                  <label>LastName:${row.last_name}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <div style="
+    padding: 10px;
+"></div>`;
+    }
+    else
+    {
+      str += `<div class="col-sm-3 col-md-3 col-lg-3 col-lx-3">
+          <div class="card">
+            <div class="card-header"><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle">${row.first_name} ${row.last_name}</div>
+            <div class="card-body">
+              <div class="row">
+                <div>
+                  <label>Email:${row.email}</label>
+                </div>
+                <div>
+                  <label>Firstname:${row.first_name}</label>
+                </div>
+                <div>
+                  <label>LastName:${row.last_name}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+        document.querySelector('#dynamicTableData').innerHTML = '';
+
+        document.querySelector('#dynamicTableData').innerHTML = str;
+      });
+  }
+  function sortByLastName() {
+    let str = '';
+    let Count=0;
+    userData
+      .sort((a, b) => a.last_name.localeCompare(b.last_name))
+      .forEach((row, index, arr) => {
+        Count++
+    if(Count % 4==0)
+    {
+ str += `<div class="col-sm-3 col-md-3 col-lg-3 col-lx-3">
+          <div class="card">
+            <div class="card-header"><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle">${row.first_name} ${row.last_name}</div>
+            <div class="card-body">
+              <div class="row">
+                <div>
+                  <label>Email:${row.email}</label>
+                </div>
+                <div>
+                  <label>Firstname:${row.first_name}</label>
+                </div>
+                <div>
+                  <label>LastName:${row.last_name}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <div style="
+    padding: 10px;
+"></div>`;
+    }
+    else
+    {
+      str += `<div class="col-sm-3 col-md-3 col-lg-3 col-lx-3">
+          <div class="card">
+            <div class="card-header"><img src="${row.avatar}" width="50" height="50" class="img-thumbnail rounded-circle">${row.first_name} ${row.last_name}</div>
+            <div class="card-body">
+              <div class="row">
+                <div>
+                  <label>Email:${row.email}</label>
+                </div>
+                <div>
+                  <label>Firstname:${row.first_name}</label>
+                </div>
+                <div>
+                  <label>LastName:${row.last_name}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+        document.querySelector('#dynamicTableData').innerHTML = '';
+
+        document.querySelector('#dynamicTableData').innerHTML = str;
+      });
   }
 </script>
